@@ -38,10 +38,13 @@ public class RGB extends Application {
 	File file;
 	double []rgb;
 	String choose;
+	String choose2;
 
-	public RGB(String choose) {
+
+	public RGB(String choose,String choose2) {
 		super();
 		this.choose=choose;
+		this.choose2=choose2;
 		start(new Stage());
 		// TODO Auto-generated constructor stub
 	}
@@ -99,7 +102,10 @@ public class RGB extends Application {
 			arrayLabel[i]=new Label(data[i].getNameForData());
 			arrayLabel[i].setMinSize(60, 30);
 			arrayLabelColor[i]=new Label();
-			arrayLabelColor[i].setMinSize(60, 30);
+			arrayLabelColor[i].setMinSize(60, 30);//************************************************************
+			arrayLabelColor[i].setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)data[i].getrColor())
+			+ decimalToHexTwoDigits((int) data[i].getgColor())
+			+ decimalToHexTwoDigits((int) data[i].getbColor()) + ";");
 			arrayHBox[i]=new HBox(10);
 			arrayHBox[i].getChildren().addAll(arrayLabel[i],arrayLabelColor[i]);
 			scrollPaneVBox.getChildren().addAll(arrayHBox[i]);
@@ -112,6 +118,10 @@ public class RGB extends Application {
 		ColorSlider red=new ColorSlider(0, 255, 25, 5, 120, "RED");
 		ColorSlider blue=new ColorSlider(0, 255, 25, 5, 120, "Blue");
 		ColorSlider green=new ColorSlider(0, 255, 25, 5, 120, "Green");
+		red.label.setMinSize(60, 30);
+		green.label.setMinSize(60, 30);
+		blue.label.setMinSize(60, 30);
+
 		ComboBox<String> dataComboBox=new  ComboBox<>();
 		for(int i=0; i<data.length;i++) {
 			dataComboBox.getItems().add(data[i].getNameForData());
@@ -220,7 +230,7 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)red.s
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				try {
-					CircleGraph cG=new CircleGraph();
+					CircleGraph cG=new CircleGraph(choose2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -228,8 +238,9 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)red.s
 
 			}
 		});
-
-		vBoxRGB.getChildren().addAll(dataComboBox,red,green,blue,redControl,greenControl,buleControl,color,ok,next);
+		HBox h=new HBox(10);
+		h.getChildren().addAll(next,ok);
+		vBoxRGB.getChildren().addAll(dataComboBox,red,green,blue,redControl,greenControl,buleControl,color,h);
 		root.setCenter(vBoxRGB);
 		ok.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -320,6 +331,9 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)red.s
 			arrayLabel[i].setMinSize(60, 30);
 			arrayLabelColor[i]=new Label();
 			arrayLabelColor[i].setMinSize(60, 30);
+			arrayLabelColor[i].setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)data[i].getrColor())
+			+ decimalToHexTwoDigits((int) data[i].getgColor())
+			+ decimalToHexTwoDigits((int) data[i].getbColor()) + ";");
 			arrayHBox[i]=new HBox(10);
 			arrayHBox[i].getChildren().addAll(arrayLabel[i],arrayLabelColor[i]);
 			scrollPaneVBox.getChildren().addAll(arrayHBox[i]);
@@ -439,7 +453,7 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)RGBTo
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				try {
-					CircleGraph cG=new CircleGraph();
+					CircleGraph cG=new CircleGraph(choose2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -447,8 +461,9 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)RGBTo
 
 			}
 		});
-
-		vBoxRGB.getChildren().addAll(dataComboBox,c,m,y,cControl,mControl,yControl,color,ok,next);
+		HBox h=new HBox(10);
+		h.getChildren().addAll(next,ok);
+		vBoxRGB.getChildren().addAll(dataComboBox,c,m,y,cControl,mControl,yControl,color,h);
 		root.setCenter(vBoxRGB);
 		ok.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -559,6 +574,9 @@ color.setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)RGBTo
 			arrayLabel[i].setMinSize(60, 30);
 			arrayLabelColor[i]=new Label();
 			arrayLabelColor[i].setMinSize(60, 30);
+			arrayLabelColor[i].setStyle(" -fx-background-color:" + "#" + decimalToHexTwoDigits((int)data[i].getrColor())
+			+ decimalToHexTwoDigits((int) data[i].getgColor())
+			+ decimalToHexTwoDigits((int) data[i].getbColor()) + ";");
 			arrayHBox[i]=new HBox(10);
 			arrayHBox[i].getChildren().addAll(arrayLabel[i],arrayLabelColor[i]);
 			scrollPaneVBox.getChildren().addAll(arrayHBox[i]);
@@ -670,7 +688,7 @@ color.setStyle(" -fx-background-color:" + "#" + rgbToString(rgb[0],rgb[1],rgb[2]
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				try {
-					CircleGraph cG=new CircleGraph();
+					CircleGraph cG=new CircleGraph(choose2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -678,8 +696,9 @@ color.setStyle(" -fx-background-color:" + "#" + rgbToString(rgb[0],rgb[1],rgb[2]
 
 			}
 		});
-
-		vBoxRGB.getChildren().addAll(dataComboBox,hue,saturation,value,hueControl,saturationControl,valueControl,color,ok,next);
+		HBox h=new HBox(10);
+		h.getChildren().addAll(next,ok);
+		vBoxRGB.getChildren().addAll(dataComboBox,hue,saturation,value,hueControl,saturationControl,valueControl,color,h);
 		root.setCenter(vBoxRGB);
 		ok.setOnAction(new EventHandler<ActionEvent>() {
 			

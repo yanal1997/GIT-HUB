@@ -35,6 +35,12 @@ public class WelcomeGUI extends Application{
 	static String title;
 	static String dataType;
 	ToggleGroup toggleGroup;
+	ToggleGroup toggleGroup2;
+	 CheckBox  autoChooseColorCheckBox;
+	 int[] redArray=new int[255];
+	 int[] greenArray=new int[255];
+	 int[] blueArray=new int[255];
+
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -51,8 +57,10 @@ public class WelcomeGUI extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 
-		Label welcomeLabel=new Label("welcom");
+		Label welcomeLabel=new Label("");
 		Label chooselabel=new Label("choose the color system");
+		Label chooselabel2=new Label("choose the graph type");
+
 		Label browesLabel=new Label("Choose input file");
 		Button browes=new Button("Browes file");
 		Button next=new Button("Next");
@@ -60,18 +68,31 @@ public class WelcomeGUI extends Application{
 		RadioButton rgbColor=new RadioButton("RGB");
 		RadioButton cynColor=new RadioButton("CYN");
 		RadioButton hsvColor=new RadioButton("HSV");
+		toggleGroup2=new ToggleGroup();
+		RadioButton piGraph=new RadioButton("Pi");
+		RadioButton barGraph=new RadioButton("Bar");
+		RadioButton cicleGraph=new RadioButton("Cicle");
+		RadioButton doteGraph=new RadioButton("Dote");
+		cicleGraph.setSelected(true);
 		rgbColor.setSelected(true);
 	    rgbColor.setToggleGroup(toggleGroup);
 	    cynColor.setToggleGroup(toggleGroup);
 	    hsvColor.setToggleGroup(toggleGroup);
-	    CheckBox  autoChooseColorCheckBox=new CheckBox("Choose random colors");
+	    piGraph.setToggleGroup(toggleGroup2);
+	    barGraph.setToggleGroup(toggleGroup2);
+	    cicleGraph.setToggleGroup(toggleGroup2);
+	    doteGraph.setToggleGroup(toggleGroup2);
+	    HBox hbox=new HBox(10);
+	    hbox.getChildren().addAll(piGraph,barGraph,cicleGraph,doteGraph);
+
+	      autoChooseColorCheckBox=new CheckBox("Choose random colors");
 		BorderPane root =new BorderPane();
 		HBox browseHBox=new HBox(40);
 		HBox colorHbox=new HBox(10);
 				VBox iteamVBox=new VBox(10);
 		//iteamVBox.setAlignment(Pos.CENTER);
 		colorHbox.setAlignment(Pos.CENTER);
-		browseHBox.setAlignment(Pos.CENTER);
+		hbox.setAlignment(Pos.CENTER);
 		root.setBottom(next);
 		root.setTop(welcomeLabel);
 		root.setAlignment(welcomeLabel, Pos.CENTER);
@@ -79,9 +100,9 @@ public class WelcomeGUI extends Application{
 		root.setPadding(new Insets(10, 10, 10, 10));
 		browseHBox.getChildren().addAll(browesLabel, browes);
 		colorHbox.getChildren().addAll(rgbColor,cynColor,hsvColor);
-		iteamVBox.getChildren().addAll(browseHBox,chooselabel,colorHbox,autoChooseColorCheckBox);
+		iteamVBox.getChildren().addAll(browseHBox,chooselabel,colorHbox,chooselabel2,hbox,autoChooseColorCheckBox);
 		root.setCenter(iteamVBox);
-		Scene scene = new Scene(root,400,400);
+		Scene scene = new Scene(root,300,300);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -92,9 +113,11 @@ public class WelcomeGUI extends Application{
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
-		});
+		});		root.setAlignment(next, Pos.CENTER);
+
 		next.setOnAction(e->{
 			try {
+				System.out.println("hi");
 				nextFunction();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -109,7 +132,47 @@ public class WelcomeGUI extends Application{
 	private void  nextFunction() throws IOException {
 		// TODO Auto-generated method stub
 	String	choose= toggleGroup.getSelectedToggle().toString();
-	 RGB rgb=new RGB(choose);
+	String choose2= toggleGroup2.getSelectedToggle().toString();
+	if(autoChooseColorCheckBox.isSelected()) {
+		for(int i=0;i<data.length;i++) {
+			int red =(int) Math.floor(Math.random()*255);
+			int green =(int) Math.floor(Math.random()*255);
+			int blue =(int) Math.floor(Math.random()*255);
+
+			if(redArray[red]==0) {
+				redArray[red]=red;
+				data[i].setrColor(red);
+				}else {
+					while(redArray[red]!=0) {
+						red =(int) Math.floor(Math.random()*255);
+					}
+					redArray[red]=red;
+					
+				}
+			if(greenArray[green]==0) {
+				greenArray[green]=green;
+				data[i].setgColor(green);
+				}else {
+					while(redArray[green]!=0) {
+						green =(int) Math.floor(Math.random()*255);
+					}
+					redArray[green]=green;
+					
+				}
+			if(blueArray[blue]==0) {
+				greenArray[blue]=blue;
+				data[i].setbColor(blue);
+				}else {
+					while(blueArray[blue]!=0) {
+						blue =(int) Math.floor(Math.random()*255);
+					}
+					redArray[blue]=blue;
+					
+				}
+			
+		}
+	}
+	 RGB rgb=new RGB(choose,choose2);
 
 	
 	}
